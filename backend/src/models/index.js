@@ -75,15 +75,21 @@ Comment.belongsTo(Comment, {
 
 // Post <-> Tags (many-to-many)
 Post.belongsToMany(Tag, {
-  through: 'post_tags',
-  foreignKey: 'postId',
-  otherKey: 'tagId',
+  through: {
+    model: 'post_tags',
+    timestamps: false
+  },
+  foreignKey: 'post_id',
+  otherKey: 'tag_id',
   as: 'tags'
 });
 Tag.belongsToMany(Post, {
-  through: 'post_tags',
-  foreignKey: 'tagId',
-  otherKey: 'postId',
+  through: {
+    model: 'post_tags',
+    timestamps: false
+  },
+  foreignKey: 'tag_id',
+  otherKey: 'post_id',
   as: 'posts'
 });
 

@@ -99,11 +99,8 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Database connection established successfully');
 
-    // Sync models (in development only)
-    if (process.env.NODE_ENV === 'development') {
-      await sequelize.sync({ alter: true });
-      console.log('✅ Database models synced');
-    }
+    // Don't sync models - we use init.sql
+    // Models are created by init.sql script
 
     // Start server
     httpServer.listen(PORT, () => {

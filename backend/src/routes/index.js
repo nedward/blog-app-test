@@ -3,9 +3,15 @@ const router = express.Router();
 
 // Import route modules
 const authRoutes = require('./auth');
+const postRoutes = require('./posts');
+const sentimentRoutes = require('./sentimentRoutes');
+const engagementRoutes = require('./engagements');
 
 // Mount routes
 router.use('/auth', authRoutes);
+router.use('/posts', postRoutes);
+router.use('/sentiment', sentimentRoutes);
+router.use('/engagements', engagementRoutes);
 
 // API info endpoint
 router.get('/', (req, res) => {
@@ -20,9 +26,25 @@ router.get('/', (req, res) => {
         me: 'GET /api/v1/auth/me',
         logout: 'POST /api/v1/auth/logout'
       },
-      posts: 'Coming soon...',
-      sentiment: 'Coming soon...',
-      engagement: 'Coming soon...'
+      posts: {
+        list: 'GET /api/v1/posts',
+        create: 'POST /api/v1/posts',
+        get: 'GET /api/v1/posts/:id',
+        update: 'PUT /api/v1/posts/:id',
+        delete: 'DELETE /api/v1/posts/:id',
+        userPosts: 'GET /api/v1/posts/user/:userId'
+      },
+      sentiment: {
+        distribution: 'GET /api/v1/sentiment/distribution',
+        trendingEmotions: 'GET /api/v1/sentiment/trending-emotions',
+        postSentiment: 'GET /api/v1/sentiment/post/:postId'
+      },
+      engagement: {
+        toggle: 'POST /api/v1/engagements/posts/:postId',
+        stats: 'GET /api/v1/engagements/posts/:postId',
+        userEngagements: 'GET /api/v1/engagements/user',
+        trending: 'GET /api/v1/engagements/trending'
+      }
     }
   });
 });

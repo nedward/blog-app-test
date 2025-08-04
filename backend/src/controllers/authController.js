@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const { Op } = require('sequelize');
 const { User } = require('../models');
 const { generateTokens, refreshAccessToken } = require('../utils/jwt');
 const { handleValidationErrors } = require('../middleware/validation');
@@ -44,7 +45,7 @@ const register = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({
       where: {
-        [User.sequelize.Op.or]: [{ email }, { username }]
+        [Op.or]: [{ email }, { username }]
       }
     });
 

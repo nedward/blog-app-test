@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 const config = {
   development: {
-    url: process.env.DATABASE_URL || 'postgresql://sentiblog:sentiblog_dev_123@localhost:5432/sentiblog_dev',
+    url: process.env.DATABASE_URL || 'postgresql://sentiblog:sentiblog_dev_123@postgres:5432/sentiblog_dev',
     dialect: 'postgres',
     logging: console.log,
     pool: {
