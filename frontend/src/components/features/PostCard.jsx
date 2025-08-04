@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Clock, Eye, TrendingUp, MessageCircle } from 'lucide-react';
 import { cn, formatDate, formatEngagementCount } from '@/lib/utils';
-import SentimentBadge from '@/components/ui/SentimentBadge';
-import EngagementButton from '@/components/ui/EngagementButton';
+import SentimentBadge from '../ui/SentimentBadge';
+import EngagementButton from '../ui/EngagementButton';
 
 const PostCard = ({ 
   post,

@@ -13,8 +13,7 @@ import {
   SentimentBadge,
   SentimentIndicator,
   EngagementButton,
-  ShareButton,
-  PostCard
+  ShareButton
 } from '@/components';
 
 const ComponentShowcase = () => {
@@ -51,24 +50,24 @@ const ComponentShowcase = () => {
     }
   };
 
-  const samplePost = {
-    id: '1',
-    title: 'Building a Sentiment-Aware Blog Platform',
-    excerpt: 'Learn how we built SentiBlog, a platform that analyzes the emotional tone of content and creates viral-ready moments.',
-    slug: 'building-sentiment-aware-blog',
-    author: { username: 'johndoe', id: '1' },
-    createdAt: new Date().toISOString(),
-    viewCount: 1234,
-    sentimentAnalysis: { sentiment: 'positive', sentimentScore: 0.75 },
-    engagementStats: { likes: 42, dislikes: 5 },
-    userEngagement: true,
-    commentCount: 23,
-    tags: [
-      { id: '1', name: 'technology', slug: 'technology' },
-      { id: '2', name: 'ai', slug: 'ai' },
-    ],
-    isTrending: true,
-  };
+  // const samplePost = {
+  //   id: '1',
+  //   title: 'Building a Sentiment-Aware Blog Platform',
+  //   excerpt: 'Learn how we built SentiBlog, a platform that analyzes the emotional tone of content and creates viral-ready moments.',
+  //   slug: 'building-sentiment-aware-blog',
+  //   author: { username: 'johndoe', id: '1' },
+  //   createdAt: new Date().toISOString(),
+  //   viewCount: 1234,
+  //   sentimentAnalysis: { sentiment: 'positive', sentimentScore: 0.75 },
+  //   engagementStats: { likes: 42, dislikes: 5 },
+  //   userEngagement: true,
+  //   commentCount: 23,
+  //   tags: [
+  //     { id: '1', name: 'technology', slug: 'technology' },
+  //     { id: '2', name: 'ai', slug: 'ai' },
+  //   ],
+  //   isTrending: true,
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -131,7 +130,7 @@ const ComponentShowcase = () => {
                   isActive={isDisliked}
                   onClick={handleDislike}
                 />
-                <ShareButton url={window.location.href} title="Check out this component!" />
+                <ShareButton url={typeof window !== 'undefined' ? window.location.href : ''} title="Check out this component!" />
               </div>
             </CardContent>
           </Card>
@@ -266,8 +265,8 @@ const ComponentShowcase = () => {
           </div>
         </section>
 
-        {/* Post Card */}
-        <section className="mb-12">
+        {/* Post Card - Temporarily disabled due to import issues */}
+        {/* <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-6">Post Cards</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <PostCard 
@@ -295,7 +294,7 @@ const ComponentShowcase = () => {
               variant="featured"
             />
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
