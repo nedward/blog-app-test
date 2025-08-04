@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>CORS Test</h1>
+    <button onclick="testAPI()">Test API Connection</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                // Test from localhost:3005
+                const response = await fetch('http://localhost:3001/api/v1/health', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <p><strong>Success!</strong></p>
+                    <p>Status: ${response.status}</p>
+                    <p>Data: <pre>${JSON.stringify(data, null, 2)}</pre></p>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p><strong>Error!</strong></p>
+                    <p>${error.message}</p>
+                    <p>This might be a CORS issue.</p>
+                `;
+                console.error('Full error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -18,9 +18,20 @@ const config = {
     }
   },
   test: {
-    url: process.env.DATABASE_URL || 'postgresql://sentiblog:sentiblog_dev_123@localhost:5432/sentiblog_test',
+    url: process.env.DATABASE_URL || 'postgresql://sentiblog:sentiblog_dev_123@postgres:5432/sentiblog_test',
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    },
+    define: {
+      timestamps: true,
+      underscored: true,
+      freezeTableName: true
+    }
   },
   production: {
     url: process.env.DATABASE_URL,

@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PenSquare, TrendingUp, User, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 import Button from '../ui/Button';
 
-const Header = ({ user, onLogout }) => {
+const Header = () => {
   const router = useRouter();
+  const { user, logout, isAuthenticated } = useAuth();
   
   const navItems = [
     { href: '/', label: 'Home' },
@@ -49,7 +51,7 @@ const Header = ({ user, onLogout }) => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            {user ? (
+            {isAuthenticated && user ? (
               <>
                 <Button
                   variant="primary"
@@ -83,7 +85,7 @@ const Header = ({ user, onLogout }) => {
                         Profile
                       </Link>
                       <button
-                        onClick={onLogout}
+                        onClick={logout}
                         className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
                       >
                         <LogOut size={16} />

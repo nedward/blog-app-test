@@ -13,6 +13,16 @@ router.use('/posts', postRoutes);
 router.use('/sentiment', sentimentRoutes);
 router.use('/engagements', engagementRoutes);
 
+// Health check endpoint
+router.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    service: 'SentiBlog API',
+    version: '1.0.0'
+  });
+});
+
 // API info endpoint
 router.get('/', (req, res) => {
   res.json({

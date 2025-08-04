@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from './Header';
 
-const Layout = ({ children, user, onLogout }) => {
+const Layout = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header user={user} onLogout={onLogout} />
+      <Header />
       <main className="container mx-auto px-4 py-8">
         {children}
       </main>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Status Test</title>
+</head>
+<body>
+    <h1>API Status Test</h1>
+    <div id="status">Checking API status...</div>
+    
+    <script>
+        // Include the env-config
+        const script = document.createElement('script');
+        script.src = 'http://localhost:3005/env-config.js';
+        document.head.appendChild(script);
+        
+        script.onload = async () => {
+            const apiUrl = window.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+            console.log('API URL:', apiUrl);
+            
+            try {
+                const response = await fetch(`${apiUrl}/health`);
+                const data = await response.json();
+                
+                document.getElementById('status').innerHTML = `
+                    <p>API Status: ${response.ok ? 'Connected' : 'Disconnected'}</p>
+                    <p>Response: <pre>${JSON.stringify(data, null, 2)}</pre></p>
+                `;
+            } catch (error) {
+                document.getElementById('status').innerHTML = `
+                    <p>API Status: Disconnected</p>
+                    <p>Error: ${error.message}</p>
+                `;
+            }
+        };
+    </script>
+</body>
+</html>

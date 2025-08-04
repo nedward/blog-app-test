@@ -15,9 +15,20 @@
 
 **Transform your thoughts into viral, emotionally-resonant content**
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#) [![AI Powered](https://img.shields.io/badge/AI-sentiment%20analysis-blue)](#) [![Engagement](https://img.shields.io/badge/viral-mechanics-purple)](#)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#) [![AI Powered](https://img.shields.io/badge/AI-sentiment%20analysis-blue)](#) [![Engagement](https://img.shields.io/badge/viral-mechanics-purple)](#) [![Docker Ready](https://img.shields.io/badge/docker-ready-blue)](#)
 
 </div>
+
+## 🎉 MVP Status
+
+**SentiBlog MVP is now LIVE!** The core platform is fully functional with:
+
+✅ **User Authentication** - Secure signup/login with JWT tokens  
+✅ **Blog Post CRUD** - Create, read, update, and delete posts  
+✅ **Real-time Sentiment Analysis** - AI-powered emotional insights as you write  
+✅ **Engagement System** - Like/dislike functionality with real-time updates  
+✅ **Responsive UI** - Beautiful, mobile-friendly interface  
+✅ **Docker Development** - One-command setup with docker-compose
 
 ---
 
@@ -212,6 +223,30 @@ Stage 3: "I've built a thriving, engaged community!"
 
 ---
 
+## 🐛 Troubleshooting
+
+### Common Issues and Solutions
+
+**API shows as "Disconnected"**
+- Ensure backend is running: `docker-compose ps`
+- Check backend logs: `docker-compose logs backend`
+- Verify the health endpoint: `curl http://localhost:3001/api/v1/health`
+
+**Can't create account or login**
+- Check if frontend env-config.js is loaded
+- Verify CORS settings in backend
+- Clear browser cache and cookies
+
+**Database connection errors**
+- Ensure PostgreSQL is running: `docker-compose ps postgres`
+- Check database logs: `docker-compose logs postgres`
+- Verify DATABASE_URL in backend .env
+
+**Frontend not loading**
+- Check if port 3005 is free
+- Clear Next.js cache: `rm -rf frontend/.next`
+- Rebuild frontend: `docker-compose up -d --build frontend`
+
 ## ✨ Feature Showcase: What You Get
 
 ### 🎭 Sentiment Analysis Dashboard
@@ -265,50 +300,90 @@ Post: "The Future of AI in Content Creation"
 
 ## 🚀 Quick Start Guide
 
-### 1. 📥 Installation
+### Prerequisites
+
+- Docker and Docker Compose installed
+- Node.js 18+ (for local development)
+- Git
+
+### 1. 📥 Clone the Repository
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sentiblog.git
-cd sentiblog
-
-# Install dependencies
-npm install
-# or
-pip install -r requirements.txt
+git clone https://github.com/yourusername/blog-app-test.git
+cd blog-app-test
 ```
 
-### 2. ⚙️ Configuration
+### 2. 🐳 Start with Docker (Recommended)
 
 ```bash
-# Set up environment variables
-cp .env.example .env
+# Start all services with one command
+docker-compose up -d
 
-# Configure your AI service (OpenAI, Google Cloud, etc.)
-export SENTIMENT_API_KEY="your-api-key"
+# Services will be available at:
+# 🌟 Frontend: http://localhost:3005
+# 🚀 Backend API: http://localhost:3001
+# 🐘 PostgreSQL: localhost:5433
+# 📊 pgAdmin: http://localhost:5050
+# ⚡ Redis: localhost:6379
 ```
 
-### 3. 🚀 Launch
+### 3. 🎯 First-Time Setup
 
 ```bash
-# Start development server
-npm run dev
+# Run database migrations (first time only)
+docker-compose exec backend npm run migrate
 
-# Your sentiment-aware blog is now running at:
-# 🌟 http://localhost:3000
+# Create a test user (optional)
+docker-compose exec backend npm run seed
 ```
 
-### 4. 🎭 First Post with Sentiment Analysis
+### 4. 🎉 Access the Application
 
-```javascript
-// The magic happens automatically!
-const newPost = {
-    title: "My Amazing Blog Post",
-    content: "This is going to be incredible...",
-    // 🤖 AI automatically analyzes sentiment
-    // 📊 Provides engagement predictions
-    // 🎯 Suggests optimizations
-};
+1. Open http://localhost:3005 in your browser
+2. Click "Sign Up" to create an account
+3. Start creating sentiment-analyzed posts!
+
+### 5. 🔑 Default Credentials
+
+- **pgAdmin**: admin@admin.com / admin
+- **Test User**: testuser@example.com / Test1234!
+
+### 🛠️ Development Commands
+
+```bash
+# View logs
+docker-compose logs -f [service_name]
+
+# Stop all services
+docker-compose down
+
+# Rebuild after changes
+docker-compose up -d --build
+
+# Run backend tests
+docker-compose exec backend npm test
+
+# Access database
+docker-compose exec postgres psql -U sentiblog -d sentiblog_db
+```
+
+### 🔧 Environment Variables
+
+The application uses the following key environment variables:
+
+**Backend (.env)**:
+```bash
+PORT=3001
+DATABASE_URL=postgresql://sentiblog:sentiblog123@postgres:5432/sentiblog_db
+JWT_SECRET=your-secret-key
+JWT_EXPIRE=7d
+REDIS_URL=redis://redis:6379
+```
+
+**Frontend (.env.local)**:
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
 ```
 
 ---
